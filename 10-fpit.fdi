@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<deviceinfo version="0.2">
+  <device>
+    <match key="info.capabilities" contains="serial">
+      <!-- The fpit driver can support a range of hardware, but there are
+	   several different protocols. We key off the wide range to do basic
+	   driver setup and then more specifically for device-specific
+	   setup -->
+      <match key="@info.parent:pnp.id" contains_outof="FUJ02B2;FUJ02B3;FUJ02B4;FUJ02B6;FUJ02B7;FUJ02B8;FUJ02B9;FUJ02BC">
+	<append key="info.capabilities" type="strlist">input</append>
+	<merge key="input.device" type="copy_property">serial.device</merge>
+	<merge key="input.x11_driver" type="string">fpit</merge>
+	<merge key="input.x11_options.TrackRandR" type="string">True</merge>
+        <match key="@info.parent:pnp.id" contains_outof="FUJ02B2;FUJ02B3">
+	  <!-- Active pen devices -->
+	  <merge key="input.x11_options.BaudRate" type="string">19200</merge>
+	  <merge key="input.x11_options.MaximumXPosition" type="string">6250</merge>
+	  <merge key="input.x11_options.MaximumYPosition" type="string">4950</merge>
+	  <merge key="input.x11_options.MinimumXPosition" type="string">130</merge>
+	  <merge key="input.x11_options.MinimumYPosition" type="string">0</merge>
+	  <merge key="input.x11_options.InvertY" type="string">True</merge>
+	</match>
+      <match key="@info.parent:pnp.id" contains_outof="FUJ02B6;FUJ02B7;FUJ02B8;FUJ02B9;FUJ02BC">
+	  <!-- Passive pen devices -->
+	  <merge key="input.x11_options.BaudRate" type="string">9600</merge>
+	  <merge key="input.x11_options.MaximumXPosition" type="string">4070</merge>
+	  <merge key="input.x11_options.MaximumYPosition" type="string">4020</merge>
+	  <merge key="input.x11_options.MinimumXPosition" type="string">0</merge>
+	  <merge key="input.x11_options.MinimumYPosition" type="string">0</merge>
+	  <merge key="input.x11_options.Passive" type="string">True</merge>
+	</match>
+      </match>
+    </match>
+  </device>
+</deviceinfo>
